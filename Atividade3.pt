@@ -1,0 +1,63 @@
+class No:
+     def __init__(self, valor):
+         self.valor = valor
+         self.proximo = None
+         self.anterior = None
+
+
+ class ListaDuplamenteEncadeada:
+     def __init__(self):
+         self.primeiro = None
+         self.ultimo = None
+
+     def adicionar(self, valor):
+         novo_no = No(valor)
+
+         if self.primeiro is None:
+             self.primeiro = novo_no
+             self.ultimo = novo_no
+         else:
+             novo_no.anterior = self.ultimo
+             self.ultimo.proximo = novo_no
+             self.ultimo = novo_no
+
+     def remover(self, valor):
+         atual = self.primeiro
+
+         while atual is not None:
+             if atual.valor == valor:
+                 if atual.anterior is not None:
+                     atual.anterior.proximo = atual.proximo
+                 else:
+                     self.primeiro = atual.proximo
+
+                 if atual.proximo is not None:
+                     atual.proximo.anterior = atual.anterior
+
+
+                     lista = ListaDuplamenteEncadeada()
+ lista.adicionar(1)
+ lista.adicionar(2)
+ lista.adicionar(3)
+ lista.adicionar(4)
+ print(lista)  # Saída: "1 2 3 4 "
+ lista.remover(2)
+ print(lista)  # Saída: "1 3 4 "
+                 else:
+                     self.ultimo = atual.anterior
+
+                 return True
+
+             atual = atual.proximo
+
+         return False
+
+     def __str__(self):
+         lista_str = ""
+         atual = self.primeiro
+
+         while atual is not None:
+             lista_str += str(atual.valor) + " "
+             atual = atual.proximo
+
+         return lista_str
